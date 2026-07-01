@@ -1,0 +1,33 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+# Load dataset
+df = pd.read_csv("advertising.csv")
+
+print(df.head())
+
+# Features
+X = df[["TV", "Radio", "Newspaper"]]
+
+# Target
+y = df["Sales"]
+
+# Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Train
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict
+pred = model.predict(X_test)
+
+print("R2 Score:", r2_score(y_test, pred))
+
+# Predict new values
+new = [[150, 20, 30]]
+print("Predicted Sales:", model.predict(new))
