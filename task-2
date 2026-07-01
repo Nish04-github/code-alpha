@@ -1,0 +1,25 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load dataset
+df = pd.read_csv("Unemployment.csv")
+
+print(df.head())
+print(df.info())
+print(df.describe())
+
+# Remove missing values
+df.dropna(inplace=True)
+
+# Line Plot
+plt.figure(figsize=(10,5))
+plt.plot(df["Date"], df["Estimated Unemployment Rate (%)"])
+plt.xticks(rotation=90)
+plt.title("Unemployment Rate")
+plt.xlabel("Date")
+plt.ylabel("Rate")
+plt.tight_layout()
+plt.show()
+
+# Average unemployment by region
+print(df.groupby("Region")["Estimated Unemployment Rate (%)"].mean())
